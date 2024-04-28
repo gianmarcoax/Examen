@@ -44,19 +44,36 @@ const {
 // allí la recursión
 
 var objContains = function(obj, prop, value) {
-  if (obj[prop] === value) {
-      return true;
-  }
+  var prop = prop;
+  var value = value;
+  var detalle = 0;
 
-  for (var key in obj) {
-      if (typeof obj[key] === 'object') {
-          if (objContains(obj[key], prop, value)) {
-              return true;
-          }
-      }
-  }    
+function recursion (obj){
+     newUser = Object.values(obj);
+     newKeys = Object.keys(obj);
+     for(var i = 0; i < newUser.length; i++ ){
+         if(typeof newUser[i] === "object"){
+             recursion(newUser[i]);
+         }
+         else if (newKeys[i] === prop)  {
+                     if(newUser[i] === value){
+                         detalle = 1;
+                     }
+                     else{
+                         detalle = 0;
+                     }
+         }
+     }
+}
+recursion(obj);
+
+if(detalle === 1){
+  return true;
+}
+else {
   return false;
 }
+} 
 
 
 // EJERCICIO 2
