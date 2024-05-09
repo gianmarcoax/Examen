@@ -243,59 +243,19 @@ LinkedList.prototype.reverseLinkedList = function () {
 // Importante!: Aquellas personas que no cumplan con los requisitos para ingresar deben ser removidos de la cola 
 
 function controlAcces (queue, event){
-  // Tu código aca:
-     
-    let arrayN = []
-    let aptos = []
-       
-       while (queue.size() > 0) {
-        let obj = queue.dequeue()
-            if(objContains(obj, "event", event)){
-                if(mayorEdad(obj, "age", 18)){
-                    if(obj.ticket.number){
-                        if(!arrayN.includes(obj.ticket.number)){
-                            arrayN.push(obj.ticket.number)
-                            aptos.push(obj.fullname)
-                        }
-                    }
-                }   
-            }
-        }
-       
-       function mayorEdad (obj, prop, age){
-        /* Tu codigo aqui */
-        var prop = prop;
-        var age = age;
-        var detalle = 0;
-      
-      function recursion (obj){
-           newUser = Object.values(obj);
-           newKeys = Object.keys(obj);
-           for(var i = 0; i < newUser.length; i++ ){
-               if(typeof newUser[i] === "object"){
-                   recursion(newUser[i]);
-               }
-               else if (newKeys[i] === prop)  {
-                           if(newUser[i] >= age){
-                               detalle = 1;
-                           }
-                           else{
-                               detalle = 0;
-                           }
-               }
-           }
-      }
-      recursion(obj);
-    
-      if(detalle === 1){
-        return true;
-      }
-      else {
-        return false;
-      }
-    } 
-    
-    return aptos;
+  let aptos = []
+  let arrayN = []
+
+
+  while (queue.size() > 0){
+    let persona = queue.dequeue();
+    if(persona.age >= 18 && persona.ticket.event == event && !arrayN.includes(persona.ticket.number)){
+      arrayN.push(persona.ticket.number)
+      aptos.push(persona.fullname)
+  }
+  }
+
+  return aptos;
 }
 
 
@@ -395,8 +355,18 @@ BinarySearchTree.prototype.searchMin = function() {
 
 
 var specialSort = function(array, firstOrd, secondOrd) {
-  // Tu código aca:
-
+    // Tu código aca:
+    let firstOrd = firstOrd;
+    let secondOrd = secondOrd;
+    
+    if(arguments.length === 2){
+      array.sort((a, b) => a.firstOrd - b.firstOrd);
+    }
+    else if(arguments.length === 3){
+      array.sort((a, b) => a.secondOrd - b.secondOrd);
+      array.sort((a, b) => a.firstOrd - b.firstOrd);
+    }
+  return array;
 }
 
 // ----- Closures -----
@@ -414,9 +384,11 @@ var specialSort = function(array, firstOrd, secondOrd) {
 //    sumaDiez(11); --> Devolverá 21 (Ya que 11 + 10 = 21)
 
 function closureSum(numFijo) {
-    /* Tu codigo aqui */
-
+  return function(x) {
+    return x + numFijo;
+  };
 }
+
 
 // ------------------- No Cambies nada de aqui abajo ----------------------------
 
